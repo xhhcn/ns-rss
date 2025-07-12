@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="http://tuziwo.eu.org/uploads/f86d4c45-32d2-42b5-8d00-30cdddb2adc2.png" alt="NodeSeek RSS Logo" width="200" height="200">
+
 [![Docker Pulls](https://img.shields.io/docker/pulls/xhh1128/ns-rss?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
 [![Docker Image Size](https://img.shields.io/docker/image-size/xhh1128/ns-rss/latest?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
 [![GitHub](https://img.shields.io/github/license/xhhcn/ns-rss?style=for-the-badge)](LICENSE)
