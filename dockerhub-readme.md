@@ -2,8 +2,6 @@
 
 <div align="center">
 
-<img src="http://tuziwo.eu.org/uploads/f86d4c45-32d2-42b5-8d00-30cdddb2adc2.png" alt="NodeSeek RSS Logo" width="150" height="150">
-
 **🚀 高效、智能的 NodeSeek RSS 监控与 Telegram 推送工具**
 
 [![GitHub](https://img.shields.io/badge/GitHub-xhhcn/ns--rss-blue?style=flat-square&logo=github)](https://github.com/xhhcn/ns-rss)
