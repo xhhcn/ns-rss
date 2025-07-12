@@ -399,9 +399,9 @@ async def process_rss_feed(rss_url, last_sent):
     # 第一步：筛选指定类别的项目
     category_filtered = []
     if CATEGORY_LIST:
-        for item in items:
+    for item in items:
             if item.get('category', '').lower() in [cat.lower() for cat in CATEGORY_LIST]:
-                category_filtered.append(item)
+            category_filtered.append(item)
         print(f"  ✓ 筛选指定类别 {CATEGORY_LIST}，从 {len(items)} 个项目中筛选出 {len(category_filtered)} 个")
     else:
         category_filtered = items
@@ -413,26 +413,26 @@ async def process_rss_feed(rss_url, last_sent):
     
     # 第二步：如果有关键词，筛选标题包含指定关键词的项目
     if KEYWORD_LIST:
-        filtered_items = []
-        for item in category_filtered:
-            title = item.get('title', '').lower()  # 转为小写进行匹配
-            
-            # 检查标题是否包含任意一个关键词
-            found_keyword = None
+    filtered_items = []
+    for item in category_filtered:
+        title = item.get('title', '').lower()  # 转为小写进行匹配
+        
+        # 检查标题是否包含任意一个关键词
+        found_keyword = None
             for keyword in KEYWORD_LIST:
-                if keyword.lower() in title:  # 关键词也转小写匹配
-                    found_keyword = keyword
-                    break
-            
-            if found_keyword:
-                item['matched_keyword'] = found_keyword  # 记录匹配的关键词
-                filtered_items.append(item)
+            if keyword.lower() in title:  # 关键词也转小写匹配
+                found_keyword = keyword
+                break
         
-        if not filtered_items:
-            print(f"  ℹ️ 没有找到包含指定关键词的项目")
+        if found_keyword:
+            item['matched_keyword'] = found_keyword  # 记录匹配的关键词
+            filtered_items.append(item)
+    
+    if not filtered_items:
+        print(f"  ℹ️ 没有找到包含指定关键词的项目")
             print(f"  📝 关键词列表: {', '.join(KEYWORD_LIST)}")
-            return True, None
-        
+        return True, None
+    
         print(f"  ✓ 关键词筛选，从 {len(category_filtered)} 个项目中筛选出 {len(filtered_items)} 个")
         print(f"  📝 关键词列表: {', '.join(KEYWORD_LIST)}")
     else:
