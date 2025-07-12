@@ -1,0 +1,24 @@
+services:
+  ns-rss:
+    image: xhh1128/ns-rss:latest
+    container_name: ns-rss-monitor
+    environment:
+      # 必填：Telegram Bot Token
+      - TG_BOT_TOKEN=your_bot_token_here
+      # 必填：Telegram Chat ID (JSON数组格式)
+      - 'TG_CHAT_ID=["your_chat_id_here"]'
+      # 可选：RSS 类别筛选 (JSON数组格式)
+      - 'CATEGORIES=["daily","review"]'
+      # 可选：关键词筛选 (JSON数组格式)
+      - 'KEYWORDS=["关键词1","关键词2"]'
+      # 可选：等待时间 (秒)
+      - WAIT_TIME=5
+      # 可选：历史记录保留天数 (默认7天)
+      - CLEANUP_DAYS=7
+    volumes:
+      # 持久化历史记录
+      - ./data:/app/data
+    restart: unless-stopped
+    # 如果需要调试，可以取消注释以下行
+    # stdin_open: true
+    # tty: true 
