@@ -9,7 +9,7 @@
 
 **🚀 高效、智能的 NodeSeek RSS 监控与 Telegram 推送工具**
 
-[快速开始](#快速开始) • [Docker 部署](#docker-部署) • [配置说明](#配置说明)
+[快速开始](#-快速开始) • [Docker 部署](#-docker-部署) • [配置说明](#-配置说明)
 
 </div>
 
@@ -24,37 +24,49 @@
 
 ## 🏷️ 支持的类别
 
-| 类别 | 标题 |
-|------|------|
-| `daily` | 🔔 **NodeSeek日常帖子** |
-| `tech` | 🔔 **NodeSeek技术帖子** |
-| `info` | 🔔 **NodeSeek情报帖子** |
-| `review` | 🔔 **NodeSeek测评帖子** |
-| `trade` | 🔔 **NodeSeek交易帖子** |
-| `carpool` | 🔔 **NodeSeek拼车帖子** |
-| `dev` | 🔔 **NodeSeek dev帖子** |
-| `photo-share` | 🔔 **NodeSeek贴图帖子** |
-| `expose` | 🔔 **NodeSeek曝光帖子** |
-| `promotion` | 🔔 **NodeSeek商家信息** |
+<div align="center">
+
+| 类别 | 标题 | 类别 | 标题 |
+|------|------|------|------|
+| **`daily`** | 🔔 **NodeSeek日常帖子** | **`tech`** | 🔔 **NodeSeek技术帖子** |
+| **`info`** | 🔔 **NodeSeek情报帖子** | **`review`** | 🔔 **NodeSeek测评帖子** |
+| **`trade`** | 🔔 **NodeSeek交易帖子** | **`carpool`** | 🔔 **NodeSeek拼车帖子** |
+| **`dev`** | 🔔 **NodeSeek dev帖子** | **`photo-share`** | 🔔 **NodeSeek贴图帖子** |
+| **`expose`** | 🔔 **NodeSeek曝光帖子** | **`promotion`** | 🔔 **NodeSeek商家信息** |
+
+</div>
 
 ## 🚀 快速开始
 
-### 环境变量配置
+<div align="center">
 
-| 变量名 | 说明 | 必填 | 示例 |
-|--------|------|------|------|
-| `TG_BOT_TOKEN` | Telegram Bot Token | ✅ | `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11` |
-| `TG_CHAT_ID` | Telegram 聊天 ID | ✅ | `["123456789","987654321"]` |
-| `CATEGORIES` | RSS 类别筛选 | ❌ | `["promotion","tech","info"]` |
-| `KEYWORDS` | 关键词筛选 | ❌ | `["优惠","活动","促销"]` |
-| `WAIT_TIME` | 检查间隔（秒） | ❌ | `5` |
-| `CLEANUP_DAYS` | 历史记录保留天数 | ❌ | `7` |
+[![Deploy on Docker](https://img.shields.io/badge/Deploy%20on-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/xhh1128/ns-rss)
+
+</div>
+
+### 1. 获取 Telegram Bot Token
+
+1. 在 Telegram 中找到 [@BotFather](https://t.me/BotFather)
+2. 发送 `/newbot` 创建新机器人
+3. 按提示设置机器人名称和用户名
+4. 获取 Bot Token
+
+### 2. 获取 Chat ID
+
+1. 将机器人添加到目标群组或频道
+2. 发送一条消息 `/start`
+3. 访问 `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
+4. 在返回的JSON中找到 `chat` → `id`
 
 ## 🐳 Docker 部署
 
 ### 方式一：Docker Run
 
 ```bash
+# 创建数据目录
+mkdir -p ./data
+
+# 运行容器
 docker run -d \
   --name ns-rss \
   -e TG_BOT_TOKEN="your_bot_token_here" \
@@ -70,106 +82,105 @@ docker run -d \
 
 ### 方式二：Docker Compose
 
-1. **下载 docker-compose.yml**
-   ```bash
-   curl -O https://raw.githubusercontent.com/xhhcn/ns-rss/main/docker-compose.yml
-   ```
+1. 创建 `docker-compose.yml` 文件：
 
-2. **修改环境变量**
-   ```yaml
-   services:
-     ns-rss:
-       image: xhh1128/ns-rss:latest
-       container_name: ns-rss-monitor
-       environment:
-         - TG_BOT_TOKEN=your_bot_token_here
-         - 'TG_CHAT_ID=["your_chat_id_here"]'
-         - 'CATEGORIES=["daily","review"]'
-         - 'KEYWORDS=["关键词1","关键词2"]'
-         - WAIT_TIME=5
-         - CLEANUP_DAYS=7
-       volumes:
-         - ./data:/app/data
-       restart: unless-stopped
-   ```
+```yaml
+version: '3.8'
 
-3. **启动服务**
-   ```bash
-   docker-compose up -d
-   ```
+services:
+  ns-rss:
+    image: xhh1128/ns-rss:latest
+    container_name: ns-rss-monitor
+    environment:
+      # 必填：Telegram Bot Token
+      - TG_BOT_TOKEN=your_bot_token_here
+      # 必填：Telegram Chat ID (JSON数组格式)
+      - TG_CHAT_ID=["your_chat_id_here"]
+      # 可选：RSS 类别筛选 (JSON数组格式)
+      - CATEGORIES=["daily","review"]
+      # 可选：关键词筛选 (JSON数组格式)
+      - KEYWORDS=["关键词1","关键词2"]
+      # 可选：等待时间（秒），默认5秒
+      - WAIT_TIME=5
+      # 可选：历史记录保留天数，默认7天
+      - CLEANUP_DAYS=7
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+```
+
+2. 启动服务：
+
+```bash
+docker-compose up -d
+```
 
 ## ⚙️ 配置说明
 
-### 格式支持
+<div align="center">
 
-支持 **JSON 数组格式**（推荐）和**逗号分隔格式**：
+| 环境变量 | 类型 | 必填 | 默认值 | 说明 |
+|----------|------|------|--------|------|
+| **`TG_BOT_TOKEN`** | `String` | ✅ | - | Telegram Bot Token |
+| **`TG_CHAT_ID`** | `JSON Array` | ✅ | - | 聊天ID列表，如 `["123","456"]` |
+| **`CATEGORIES`** | `JSON Array` | ❌ | 全部 | 类别筛选，如 `["daily","review"]` |
+| **`KEYWORDS`** | `JSON Array` | ❌ | 无 | 关键词筛选，如 `["关键词1","关键词2"]` |
+| **`WAIT_TIME`** | `Integer` | ❌ | `5` | 检查间隔（秒） |
+| **`CLEANUP_DAYS`** | `Integer` | ❌ | `7` | 历史记录保留天数 |
 
-```env
-# JSON 数组格式 (推荐)
-TG_CHAT_ID=["123456789","987654321"]
-CATEGORIES=["promotion","tech"]
-KEYWORDS=["优惠","活动"]
-
-# 逗号分隔格式 (兼容)
-TG_CHAT_ID=123456789,987654321
-CATEGORIES=promotion,tech
-KEYWORDS=优惠,活动
-```
-
-### 配置示例
+</div>
 
 <details>
-<summary>点击查看更多配置示例</summary>
+<summary>📋 配置示例</summary>
 
-#### 只监控商家信息
-```env
-CATEGORIES=["promotion"]
-KEYWORDS=
+### 基础配置
+```bash
+TG_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
+TG_CHAT_ID=["123456789"]
 ```
 
-#### 监控特定关键词
-```env
-CATEGORIES=
-KEYWORDS=["优惠","促销","活动","黑五"]
+### 完整配置
+```bash
+TG_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
+TG_CHAT_ID=["123456789", "987654321"]
+CATEGORIES=["daily","tech","review"]
+KEYWORDS=["VPS","服务器","测评"]
+WAIT_TIME=10
+CLEANUP_DAYS=14
 ```
 
-#### 多群组推送
-```env
-TG_CHAT_ID=["-1001234567890","-1001234567891","@channel_username"]
+### 监控特定内容
+```bash
+# 只监控日常和测评帖子
+CATEGORIES=["daily","review"]
+
+# 只推送包含特定关键词的内容
+KEYWORDS=["只测不评","性能测试"]
+
+# 组合使用：监控测评帖子中包含"VPS"的内容
+CATEGORIES=["review"]
+KEYWORDS=["VPS"]
 ```
 
 </details>
 
-## 📊 管理命令
+## 📊 使用统计
 
-```bash
-# 查看日志
-docker-compose logs -f ns-rss
+- 🐳 **Docker 镜像**: 多平台支持 (linux/amd64, linux/arm64)
+- 💾 **存储优化**: 自动清理历史记录，防止无限增长
+- 🔄 **实时监控**: 可配置检查间隔，实时获取最新内容
+- 📱 **多群推送**: 支持同时推送到多个 Telegram 群组
 
-# 重启服务
-docker-compose restart ns-rss
+## 🤝 贡献
 
-# 停止服务
-docker-compose stop ns-rss
-
-# 更新镜像
-docker-compose pull && docker-compose up -d
-```
-
-## 🔧 故障排除
-
-| 问题 | 解决方案 |
-|------|----------|
-| 消息发送失败 | 检查 Bot Token 和 Chat ID 是否正确 |
-| 无法获取 RSS | 检查网络连接和 RSS 源地址 |
-| Docker 启动失败 | 检查环境变量配置，查看日志 |
+欢迎提交 Issue 和 Pull Request！
 
 ## 📄 许可证
 
-MIT License
+本项目使用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
----
+## 🔗 相关链接
 
-<div align="center">
-⭐ 如果这个项目对您有帮助，请给个 Star 支持一下！
-</div> 
+- [NodeSeek 官网](https://nodeseek.com)
+- [Docker Hub](https://hub.docker.com/r/xhh1128/ns-rss)
+- [GitHub Repository](https://github.com/xhhcn/ns-rss) 
