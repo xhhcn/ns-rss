@@ -10,80 +10,458 @@
   <style>
     :root {
       --theme-color: #42b983;
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+      --shadow-heavy: 0 15px 35px rgba(31, 38, 135, 0.5);
     }
-    
-    /* 简化样式，保持功能性 */
+
+    /* 全局动画效果 */
+    * {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 背景渐变效果 */
+    body {
+      background: var(--gradient-primary);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* 主容器毛玻璃效果 */
     .app-name {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 300;
       margin: 0 0 1rem 0;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
     }
-    
+
+    /* 侧边栏毛玻璃效果 */
+    .sidebar {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-light);
+    }
+
     .sidebar > h1 {
-      margin: 0 auto 1rem;
-      font-size: 1.5rem;
+      margin: 0 auto 2rem;
+      font-size: 1.8rem;
       font-weight: 300;
       text-align: center;
-      color: var(--theme-color);
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      padding: 1rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    
+
     .sidebar > h1 a {
       color: inherit;
       text-decoration: none;
     }
-    
+
+    .sidebar > h1:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+    }
+
+    /* 主内容区域毛玻璃效果 */
+    .content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px;
+      margin: 20px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid var(--glass-border);
+    }
+
     .markdown-section {
       max-width: 80ch;
       margin: 0 auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    
+
     .markdown-section h1 {
-      font-size: 2rem;
-      margin: 0 0 1rem 0;
+      font-size: 2.5rem;
+      margin: 0 0 2rem 0;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      position: relative;
     }
-    
+
+    .markdown-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+    }
+
     .markdown-section h2 {
-      font-size: 1.5rem;
-      margin: 2rem 0 1rem 0;
-      border-bottom: 2px solid var(--theme-color);
+      font-size: 1.8rem;
+      margin: 3rem 0 1.5rem 0;
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      border-bottom: 2px solid transparent;
+      border-image: var(--gradient-accent) 1;
       padding-bottom: 0.5rem;
+      position: relative;
     }
-    
+
+    .markdown-section h2::before {
+      content: '✨';
+      margin-right: 0.5rem;
+    }
+
+    .markdown-section h3 {
+      color: #5a67d8;
+      margin: 2rem 0 1rem 0;
+    }
+
+    /* 代码块美化 */
     .markdown-section pre {
-      background: #f8f8f8;
-      border-radius: 6px;
-      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 1.5rem;
       overflow-x: auto;
+      box-shadow: var(--shadow-light);
+      border: 1px solid var(--glass-border);
+      margin: 1.5rem 0;
     }
-    
+
+    .markdown-section pre:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+    }
+
     .markdown-section pre code {
       background: none;
       padding: 0;
+      color: #e2e8f0;
     }
-    
+
+    /* 表格美化 */
     .markdown-section table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1rem 0;
+      margin: 2rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
     }
-    
+
     .markdown-section table th,
     .markdown-section table td {
-      border: 1px solid #ddd;
-      padding: 0.5rem;
+      border: 1px solid var(--glass-border);
+      padding: 1rem;
       text-align: left;
     }
-    
+
     .markdown-section table th {
-      background: #f8f8f8;
+      background: rgba(255, 255, 255, 0.1);
       font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
-    
-    /* 移动端适配 */
+
+    .markdown-section table tr:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.02);
+    }
+
+    /* 链接美化 */
+    .markdown-section a {
+      color: #4facfe;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .markdown-section a:hover {
+      color: #00f2fe;
+      text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+    }
+
+    .markdown-section a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      transition: width 0.3s ease;
+    }
+
+    .markdown-section a:hover::after {
+      width: 100%;
+    }
+
+    /* 列表美化 */
+    .markdown-section ul, .markdown-section ol {
+      margin: 1.5rem 0;
+    }
+
+    .markdown-section li {
+      margin: 0.5rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .markdown-section ul li::before {
+      content: '🔹';
+      position: absolute;
+      left: 0;
+      color: var(--theme-color);
+    }
+
+    /* 引用块美化 */
+    .markdown-section blockquote {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-left: 4px solid var(--theme-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-light);
+    }
+
+    /* 封面页面美化 */
+    .cover.show {
+      background: var(--gradient-primary);
+    }
+
+    .cover h1 {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 3rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .cover blockquote {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      margin: 2rem 0;
+    }
+
+    .cover ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+
+    .cover li {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+    }
+
+    .cover li:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-heavy);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cover a {
+      background: var(--gradient-secondary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      text-decoration: none;
+      margin: 0 8px;
+      display: inline-block;
+      font-weight: 500;
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .cover a:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-heavy);
+      background: var(--gradient-accent);
+    }
+
+    /* 搜索框美化 */
+    .search input {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 12px 20px;
+      color: white;
+      box-shadow: var(--shadow-light);
+    }
+
+    .search input:focus {
+      outline: none;
+      box-shadow: var(--shadow-heavy);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .search input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* 按钮美化 */
+    .docsify-copy-code-button {
+      background: var(--gradient-accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .docsify-copy-code-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-light);
+    }
+
+    /* 导航栏美化 */
+    .app-nav {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .app-nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .app-nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* 滚动条美化 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-accent);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gradient-secondary);
+    }
+
+    /* 响应式设计 */
     @media screen and (max-width: 768px) {
       .markdown-section {
         max-width: 95%;
-        padding: 20px 10px;
+        padding: 1rem;
+        margin: 10px;
+      }
+      
+      .cover h1 {
+        font-size: 2rem;
+      }
+      
+      .sidebar {
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+      }
+    }
+
+    /* 动画关键帧 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* 页面加载动画 */
+    .markdown-section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .cover li {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* 特殊元素动画 */
+    .markdown-section h1:hover {
+      animation: pulse 2s infinite;
+    }
+
+    /* 深色模式适配 */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --glass-bg: rgba(0, 0, 0, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.1);
       }
     }
   </style>
@@ -124,7 +502,7 @@
       count: {
         countable: true,
         fontsize: '0.9em',
-        color: 'rgb(90,90,90)',
+        color: 'rgba(255, 255, 255, 0.7)',
         language: 'chinese'
       },
       plugins: [
