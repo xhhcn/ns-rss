@@ -10,21 +10,51 @@
   <style>
     :root {
       --theme-color: #42b983;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: rgba(0, 0, 0, 0.1);
     }
     
-    /* 简化样式，保持功能性 */
-    .app-name {
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin: 0 0 1rem 0;
+    /* 全局背景渐变 */
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
     }
     
+    /* 添加动态背景装饰 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* 侧边栏毛玻璃效果 */
+    .sidebar {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 侧边栏标题样式 */
     .sidebar > h1 {
       margin: 0 auto 1rem;
       font-size: 1.5rem;
       font-weight: 300;
       text-align: center;
-      color: var(--theme-color);
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .sidebar > h1 a {
@@ -32,59 +62,278 @@
       text-decoration: none;
     }
     
+    /* 侧边栏链接样式 */
+    .sidebar ul li a {
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin: 2px 0;
+      display: block;
+    }
+    
+    .sidebar ul li a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transform: translateX(5px);
+    }
+    
+    .sidebar ul li.active > a {
+      background: rgba(66, 185, 131, 0.3);
+      color: #fff;
+      border-left: 3px solid var(--theme-color);
+    }
+    
+    /* 导航栏毛玻璃效果 */
+    .app-nav {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .app-nav ul li a {
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      padding: 6px 12px;
+    }
+    
+    .app-nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    
+    /* 内容区域毛玻璃效果 */
+    .content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    
     .markdown-section {
       max-width: 80ch;
       margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
     
     .markdown-section h1 {
       font-size: 2rem;
       margin: 0 0 1rem 0;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .markdown-section h2 {
       font-size: 1.5rem;
       margin: 2rem 0 1rem 0;
-      border-bottom: 2px solid var(--theme-color);
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      border-bottom: 2px solid rgba(66, 185, 131, 0.5);
       padding-bottom: 0.5rem;
     }
     
+    .markdown-section h3,
+    .markdown-section h4,
+    .markdown-section h5,
+    .markdown-section h6 {
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .markdown-section p,
+    .markdown-section li {
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    .markdown-section a {
+      color: #64ffda;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .markdown-section a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
+    }
+    
+    /* 代码块毛玻璃效果 */
     .markdown-section pre {
-      background: #f8f8f8;
-      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
       padding: 1rem;
       overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
     
     .markdown-section pre code {
       background: none;
       padding: 0;
+      color: #fff;
     }
     
+    .markdown-section code {
+      background: rgba(0, 0, 0, 0.2);
+      color: #64ffda;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    
+    /* 表格毛玻璃效果 */
     .markdown-section table {
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-radius: 8px;
+      overflow: hidden;
     }
     
     .markdown-section table th,
     .markdown-section table td {
-      border: 1px solid #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 0.5rem;
       text-align: left;
+      color: rgba(255, 255, 255, 0.8);
     }
     
     .markdown-section table th {
-      background: #f8f8f8;
+      background: rgba(66, 185, 131, 0.2);
+      color: #fff;
       font-weight: bold;
+    }
+    
+    .markdown-section table tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* 引用块毛玻璃效果 */
+    .markdown-section blockquote {
+      background: rgba(66, 185, 131, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-left: 4px solid rgba(66, 185, 131, 0.8);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem;
+      margin: 1rem 0;
+      color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 封面页面毛玻璃效果 */
+    .cover.show {
+      background: none;
+    }
+    
+    .cover .cover-main {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    
+    .cover .cover-main h1 {
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .cover .cover-main p {
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .cover .cover-main .buttons a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 25px;
+      padding: 0.8rem 2rem;
+      margin: 0.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .cover .cover-main .buttons a:hover {
+      background: rgba(66, 185, 131, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 搜索框毛玻璃效果 */
+    .search input {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      color: #fff;
+      padding: 8px 16px;
+    }
+    
+    .search input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .search input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66, 185, 131, 0.5);
     }
     
     /* 移动端适配 */
     @media screen and (max-width: 768px) {
       .markdown-section {
         max-width: 95%;
-        padding: 20px 10px;
+        padding: 1.5rem;
+        margin: 1rem auto;
       }
+      
+      .cover .cover-main {
+        padding: 2rem;
+        margin: 1rem;
+      }
+    }
+    
+    /* 滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(66, 185, 131, 0.5);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(66, 185, 131, 0.7);
     }
   </style>
 </head>
@@ -124,7 +373,7 @@
       count: {
         countable: true,
         fontsize: '0.9em',
-        color: 'rgb(90,90,90)',
+        color: 'rgba(255, 255, 255, 0.7)',
         language: 'chinese'
       },
       plugins: [
