@@ -1,13 +1,13 @@
 # NodeSeek RSS 监控工具
 
-<div align="center">
-
-![Docker Pulls](https://img.shields.io/docker/pulls/xhh1128/ns-rss?style=flat-square&logo=docker&logoColor=white)
-![Image Size](https://img.shields.io/docker/image-size/xhh1128/ns-rss?style=flat-square&logo=docker&logoColor=white)
-![License](https://img.shields.io/github/license/xhhcn/ns-rss?style=flat-square)
-![Stars](https://img.shields.io/github/stars/xhhcn/ns-rss?style=flat-square)
+[![Docker Pulls](https://img.shields.io/docker/pulls/xhh1128/ns-rss?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
+[![Docker Image Size](https://img.shields.io/docker/image-size/xhh1128/ns-rss/latest?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
+[![GitHub](https://img.shields.io/github/license/xhhcn/ns-rss?style=for-the-badge)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/xhhcn/ns-rss?style=for-the-badge)](https://github.com/xhhcn/ns-rss/stargazers)
 
 **🚀 高效、智能的 NodeSeek RSS 监控与 Telegram 推送工具**
+
+<div align="center">
 
 [快速开始](#-快速开始) • [Docker 部署](#-docker-部署) • [配置说明](#-配置说明)
 
