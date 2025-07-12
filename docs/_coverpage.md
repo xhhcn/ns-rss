@@ -8,6 +8,6 @@
 - 🐳 **Docker 部署** - 一键部署，开箱即用
 - ⚙️ **灵活配置** - 丰富的环境变量配置选项
 
-[开始使用](#快速开始)
+[开始使用](https://xhhcn.github.io/ns-rss/#/quick-start)
 [GitHub](https://github.com/xhhcn/ns-rss)
 [DockerHub](https://hub.docker.com/r/xhh1128/ns-rss) 
