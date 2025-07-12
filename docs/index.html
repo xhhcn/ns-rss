@@ -6,26 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="NodeSeek RSS 监控工具，支持多种筛选条件和 Telegram 推送">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
-    /* 简化的样式，去掉复杂的背景和边框 */
     :root {
       --theme-color: #42b983;
-      --sidebar-width: 300px;
     }
     
-    .app-nav {
-      position: fixed;
-      margin: 0;
-      padding: 0 15px;
-      width: calc(100% - 300px);
-      background-color: #fff;
-      height: 55px;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .sidebar {
-      padding-top: 6px;
-      border-right: 1px solid #eee;
+    /* 简化样式，保持功能性 */
+    .app-name {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin: 0 0 1rem 0;
     }
     
     .sidebar > h1 {
@@ -41,74 +32,58 @@
       text-decoration: none;
     }
     
-    .content {
-      padding-top: 60px;
-    }
-    
     .markdown-section {
-      max-width: 80%;
+      max-width: 80ch;
       margin: 0 auto;
-      padding: 30px 15px 40px;
     }
     
-    /* 代码块样式 */
+    .markdown-section h1 {
+      font-size: 2rem;
+      margin: 0 0 1rem 0;
+    }
+    
+    .markdown-section h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem 0;
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 0.5rem;
+    }
+    
     .markdown-section pre {
-      background-color: #f8f8f8;
-      border: 1px solid #e7e7e7;
-      border-radius: 4px;
-      padding: 0.8rem;
-      overflow: auto;
-      word-wrap: normal;
+      background: #f8f8f8;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
     }
     
-    .markdown-section pre > code {
-      background-color: transparent;
-      border-radius: 0;
+    .markdown-section pre code {
+      background: none;
       padding: 0;
-      font-size: 0.8rem;
-      white-space: pre;
-      word-wrap: normal;
     }
     
-    /* 简化表格样式 */
     .markdown-section table {
-      border-collapse: collapse;
-      border-spacing: 0;
-      display: block;
       width: 100%;
-      overflow: auto;
-      word-break: normal;
-      word-break: keep-all;
+      border-collapse: collapse;
+      margin: 1rem 0;
     }
     
     .markdown-section table th,
     .markdown-section table td {
       border: 1px solid #ddd;
-      padding: 6px 13px;
+      padding: 0.5rem;
+      text-align: left;
     }
     
     .markdown-section table th {
-      background-color: #f8f8f8;
+      background: #f8f8f8;
       font-weight: bold;
     }
     
     /* 移动端适配 */
     @media screen and (max-width: 768px) {
-      .app-nav {
-        width: 100%;
-      }
-      
       .markdown-section {
         max-width: 95%;
         padding: 20px 10px;
-      }
-      
-      .sidebar {
-        transform: translateX(-300px);
-      }
-      
-      .sidebar.open {
-        transform: translateX(0);
       }
     }
   </style>
