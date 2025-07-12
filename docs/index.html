@@ -9,17 +9,12 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
     :root {
-      --theme-color: #4f46e5;
-      --theme-color-light: #6366f1;
-      --theme-color-lighter: #8b5cf6;
-      --accent-color: #10b981;
-      --text-color: #374151;
-      --text-light: #6b7280;
-      --bg-light: #f8fafc;
-      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
-      --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --theme-color: #5c6bc0;
+      --theme-color-light: #7986cb;
+      --text-color: #2d3748;
+      --text-light: #718096;
+      --bg-light: #f7fafc;
+      --border-color: #e2e8f0;
     }
     
     /* 简化样式，保持功能性 */
@@ -27,7 +22,6 @@
       font-size: 1.5rem;
       font-weight: 300;
       margin: 0 0 1rem 0;
-      transition: var(--transition);
     }
     
     .sidebar > h1 {
@@ -35,27 +29,18 @@
       font-size: 1.5rem;
       font-weight: 300;
       text-align: center;
-      background: var(--bg-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      transition: var(--transition);
+      color: var(--theme-color);
     }
     
     .sidebar > h1 a {
       color: inherit;
       text-decoration: none;
-      transition: var(--transition);
-    }
-    
-    .sidebar > h1:hover {
-      transform: translateY(-1px);
     }
     
     .sidebar ul li a {
       color: var(--text-color);
-      transition: var(--transition);
-      border-radius: 6px;
+      transition: color 0.2s ease;
+      border-radius: 4px;
       padding: 4px 8px;
       margin: 2px 0;
       display: block;
@@ -63,8 +48,7 @@
     
     .sidebar ul li a:hover {
       color: var(--theme-color);
-      background: rgba(79, 70, 229, 0.05);
-      transform: translateX(4px);
+      background: rgba(92, 107, 192, 0.05);
     }
     
     .markdown-section {
@@ -76,57 +60,24 @@
       font-size: 2rem;
       margin: 0 0 1rem 0;
       color: var(--text-color);
-      position: relative;
-      transition: var(--transition);
-    }
-    
-    .markdown-section h1::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--bg-gradient);
-      border-radius: 2px;
-      transition: var(--transition);
-    }
-    
-    .markdown-section h1:hover::after {
-      width: 100px;
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 0.5rem;
     }
     
     .markdown-section h2 {
       font-size: 1.5rem;
       margin: 2rem 0 1rem 0;
       color: var(--text-color);
-      border-bottom: 2px solid transparent;
-      background: linear-gradient(white, white), var(--bg-gradient);
-      background-clip: padding-box, border-box;
-      background-origin: border-box;
-      border-image: var(--bg-gradient) 1;
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 0.5rem;
-      transition: var(--transition);
-    }
-    
-    .markdown-section h2:hover {
-      transform: translateY(-1px);
     }
     
     .markdown-section pre {
       background: var(--bg-light);
-      border: 1px solid rgba(79, 70, 229, 0.1);
-      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
       padding: 1rem;
       overflow-x: auto;
-      box-shadow: var(--shadow-light);
-      transition: var(--transition);
-      position: relative;
-    }
-    
-    .markdown-section pre:hover {
-      box-shadow: var(--shadow-medium);
-      transform: translateY(-1px);
     }
     
     .markdown-section pre code {
@@ -136,115 +87,90 @@
     }
     
     .markdown-section blockquote {
-      background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(16, 185, 129, 0.03));
+      background: var(--bg-light);
       border-left: 4px solid var(--theme-color);
       padding: 1rem;
       margin: 1rem 0;
-      border-radius: 0 8px 8px 0;
-      box-shadow: var(--shadow-light);
-      transition: var(--transition);
-    }
-    
-    .markdown-section blockquote:hover {
-      transform: translateX(2px);
-      box-shadow: var(--shadow-medium);
+      border-radius: 0 4px 4px 0;
     }
     
     .markdown-section table {
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0;
-      border-radius: 8px;
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: var(--shadow-light);
-      transition: var(--transition);
-    }
-    
-    .markdown-section table:hover {
-      box-shadow: var(--shadow-medium);
+      border: 1px solid var(--border-color);
     }
     
     .markdown-section table th,
     .markdown-section table td {
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--border-color);
       padding: 0.75rem;
       text-align: left;
-      transition: var(--transition);
     }
     
     .markdown-section table th {
-      background: var(--bg-gradient);
-      color: white;
+      background: var(--bg-light);
+      color: var(--text-color);
       font-weight: 600;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
     
     .markdown-section table td:hover {
-      background: rgba(79, 70, 229, 0.03);
+      background: rgba(92, 107, 192, 0.02);
     }
     
     .markdown-section a {
       color: var(--theme-color);
       text-decoration: none;
-      transition: var(--transition);
-      position: relative;
+      transition: color 0.2s ease;
     }
     
     .markdown-section a:hover {
       color: var(--theme-color-light);
-      transform: translateY(-1px);
-    }
-    
-    .markdown-section a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--bg-gradient);
-      transition: var(--transition);
-    }
-    
-    .markdown-section a:hover::after {
-      width: 100%;
+      text-decoration: underline;
     }
     
     .markdown-section p {
       color: var(--text-color);
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 1rem;
     }
     
     .markdown-section code {
-      background: rgba(79, 70, 229, 0.1);
+      background: rgba(92, 107, 192, 0.1);
       color: var(--theme-color);
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 3px;
       font-size: 0.9em;
-      transition: var(--transition);
     }
     
-    .markdown-section code:hover {
-      background: rgba(79, 70, 229, 0.15);
+    .markdown-section li {
+      color: var(--text-color);
+      margin-bottom: 0.25rem;
     }
     
-    /* 按钮样式优化 */
+    .markdown-section h3,
+    .markdown-section h4,
+    .markdown-section h5,
+    .markdown-section h6 {
+      color: var(--text-color);
+    }
+    
+    /* 按钮样式简化 */
     .docsify-copy-code-button {
-      background: var(--bg-gradient) !important;
+      background: var(--theme-color) !important;
       color: white !important;
       border: none !important;
-      border-radius: 6px !important;
-      padding: 6px 12px !important;
-      font-size: 12px !important;
+      border-radius: 3px !important;
+      padding: 4px 8px !important;
+      font-size: 11px !important;
       font-weight: 500 !important;
-      box-shadow: var(--shadow-light) !important;
-      transition: var(--transition) !important;
+      transition: background-color 0.2s ease !important;
     }
     
     .docsify-copy-code-button:hover {
-      transform: translateY(-1px) !important;
-      box-shadow: var(--shadow-medium) !important;
+      background: var(--theme-color-light) !important;
     }
     
     /* 移动端适配 */
@@ -253,31 +179,6 @@
         max-width: 95%;
         padding: 20px 10px;
       }
-      
-      .sidebar ul li a:hover {
-        transform: translateX(2px);
-      }
-    }
-    
-    /* 滚动条优化 */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: var(--bg-gradient);
-      border-radius: 4px;
-      transition: var(--transition);
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--theme-color-light);
     }
   </style>
 </head>
