@@ -173,6 +173,25 @@
       background: var(--theme-color-light) !important;
     }
     
+    /* 隐藏可能的右侧元素 */
+    .pagination-item,
+    .pagination-item-label,
+    .pagination-item-title,
+    .app-sub-sidebar,
+    .github-corner {
+      display: none !important;
+    }
+    
+    .sidebar-toggle {
+      border: none;
+      background: transparent;
+    }
+    
+    /* 确保内容区域简洁 */
+    .content {
+      padding-right: 0;
+    }
+    
     /* 移动端适配 */
     @media screen and (max-width: 768px) {
       .markdown-section {
@@ -187,10 +206,10 @@
   <script>
     window.$docsify = {
       name: 'NodeSeek RSS 监控工具',
-      repo: 'https://github.com/xhhcn/ns-rss',
+      repo: '',
       homepage: 'README.md',
       loadSidebar: true,
-      loadNavbar: true,
+      loadNavbar: false,
       coverpage: true,
       onlyCover: false,
       maxLevel: 4,
@@ -209,35 +228,15 @@
         errorText: '复制失败',
         successText: '已复制'
       },
-      pagination: {
-        previousText: '上一页',
-        nextText: '下一页',
-        crossChapter: true,
-        crossChapterText: true,
-      },
-      count: {
-        countable: true,
-        fontsize: '0.9em',
-        color: 'rgb(90,90,90)',
-        language: 'chinese'
-      },
-      plugins: [
-        function(hook, vm) {
-          hook.beforeEach(function(html) {
-            var url = 'https://github.com/xhhcn/ns-rss/blob/main/docs/' + vm.route.file;
-            var editHtml = '[📝 编辑文档](' + url + ')\n';
-            return editHtml + html;
-          });
-        }
-      ]
+
+      plugins: []
     };
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
+
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
