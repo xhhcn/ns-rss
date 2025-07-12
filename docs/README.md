@@ -1,15 +1,11 @@
 # NodeSeek RSS 监控工具
 
-<div align="center">
-  <img src="http://tuziwo.eu.org/uploads/f86d4c45-32d2-42b5-8d00-30cdddb2adc2.png" width="120" height="120" style="margin-bottom: 20px;">
-</div>
-
-> 🚀 **高效、智能的 NodeSeek RSS 监控与 Telegram 推送工具**
-
 [![Docker Pulls](https://img.shields.io/docker/pulls/xhh1128/ns-rss?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
 [![Docker Image Size](https://img.shields.io/docker/image-size/xhh1128/ns-rss/latest?style=for-the-badge&logo=docker)](https://hub.docker.com/r/xhh1128/ns-rss)
 [![GitHub](https://img.shields.io/github/license/xhhcn/ns-rss?style=for-the-badge)](https://github.com/xhhcn/ns-rss/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/xhhcn/ns-rss?style=for-the-badge)](https://github.com/xhhcn/ns-rss/stargazers)
+
+> 🚀 强大的 RSS 监控解决方案，支持多种筛选条件和 Telegram 推送
 
 ## ✨ 功能特性
 

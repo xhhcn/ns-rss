@@ -2,226 +2,143 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>NodeSeek RSS 监控工具 - 文档</title>
+  <title>NodeSeek RSS 监控工具</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="NodeSeek RSS 监控工具 - 高效、智能的 RSS 监控与 Telegram 推送工具">
+  <meta name="description" content="NodeSeek RSS 监控工具，支持多种筛选条件和 Telegram 推送">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <link rel="icon" href="http://tuziwo.eu.org/uploads/f86d4c45-32d2-42b5-8d00-30cdddb2adc2.png">
   <style>
+    /* 简化的样式，去掉复杂的背景和边框 */
     :root {
       --theme-color: #42b983;
-      --theme-color-secondary: #369970;
+      --sidebar-width: 300px;
     }
     
-    .app-name-link img {
-      width: 32px;
-      height: 32px;
-      margin-right: 8px;
-    }
-    
-    .cover-main {
-      margin: -30px 0 0 0 !important;
-    }
-    
-    .cover-main h1 {
-      margin: 0.625rem 0 0.5rem;
-      font-size: 2.5rem;
-      font-weight: 300;
-    }
-    
-    .cover-main p {
-      margin: 1em 0;
-      font-size: 1.1rem;
-    }
-    
-    .cover .cover-main .buttons {
-      margin: 1.5rem 0;
-    }
-    
-    .cover .cover-main .buttons a {
-      margin: 0.5rem;
-      padding: 0.75rem 2rem;
-      font-size: 1.1rem;
-      text-decoration: none;
-      border: 2px solid var(--theme-color);
-      border-radius: 2rem;
-      transition: all 0.3s ease;
-    }
-    
-    .cover .cover-main .buttons a:hover {
-      background: var(--theme-color);
-      color: white;
-      text-decoration: none;
-    }
-    
-    .github-corner {
+    .app-nav {
       position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 999;
+      margin: 0;
+      padding: 0 15px;
+      width: calc(100% - 300px);
+      background-color: #fff;
+      height: 55px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .sidebar {
+      padding-top: 6px;
+      border-right: 1px solid #eee;
+    }
+    
+    .sidebar > h1 {
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+      font-weight: 300;
+      text-align: center;
+      color: var(--theme-color);
+    }
+    
+    .sidebar > h1 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    .content {
+      padding-top: 60px;
     }
     
     .markdown-section {
-      max-width: 80ch;
+      max-width: 80%;
+      margin: 0 auto;
+      padding: 30px 15px 40px;
     }
     
-    .markdown-section h1 {
-      font-size: 2rem;
-      margin: 0 0 1rem 0;
-    }
-    
-    .markdown-section h2 {
-      font-size: 1.5rem;
-      margin: 2rem 0 1rem 0;
-      border-bottom: 2px solid var(--theme-color);
-      padding-bottom: 0.5rem;
-    }
-    
-    .markdown-section h3 {
-      font-size: 1.25rem;
-      margin: 1.5rem 0 0.5rem 0;
-    }
-    
-    .markdown-section code {
-      background: #f8f8f8;
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-      font-size: 0.9em;
-    }
-    
+    /* 代码块样式 */
     .markdown-section pre {
-      background: #f8f8f8;
-      border-radius: 6px;
-      padding: 1rem;
-      overflow-x: auto;
+      background-color: #f8f8f8;
+      border: 1px solid #e7e7e7;
+      border-radius: 4px;
+      padding: 0.8rem;
+      overflow: auto;
+      word-wrap: normal;
     }
     
-    .markdown-section pre code {
-      background: none;
+    .markdown-section pre > code {
+      background-color: transparent;
+      border-radius: 0;
       padding: 0;
+      font-size: 0.8rem;
+      white-space: pre;
+      word-wrap: normal;
     }
     
-    .markdown-section blockquote {
-      border-left: 4px solid var(--theme-color);
-      margin: 1rem 0;
-      padding: 0.5rem 0 0.5rem 1rem;
-      background: #f8f9fa;
-    }
-    
+    /* 简化表格样式 */
     .markdown-section table {
-      width: 100%;
       border-collapse: collapse;
-      margin: 1rem 0;
+      border-spacing: 0;
+      display: block;
+      width: 100%;
+      overflow: auto;
+      word-break: normal;
+      word-break: keep-all;
     }
     
     .markdown-section table th,
     .markdown-section table td {
       border: 1px solid #ddd;
-      padding: 0.5rem;
-      text-align: left;
+      padding: 6px 13px;
     }
     
     .markdown-section table th {
-      background: var(--theme-color);
-      color: white;
+      background-color: #f8f8f8;
       font-weight: bold;
     }
     
-    .markdown-section table tr:nth-child(even) {
-      background: #f8f9fa;
-    }
-    
-    .token.keyword {
-      color: #0077aa;
-    }
-    
-    .token.string {
-      color: #669900;
-    }
-    
-    .token.comment {
-      color: #999;
-    }
-    
-    .sidebar-toggle {
-      background: transparent;
-      border: none;
-      outline: none;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 284px;
-      cursor: pointer;
-    }
-    
-    .app-name {
-      display: flex;
-      align-items: center;
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin: 0 0 1rem 0;
-    }
-    
-    /* 自定义徽章样式 */
-    .custom-badge {
-      display: inline-block;
-      padding: 0.3em 0.6em;
-      font-size: 0.8rem;
-      font-weight: bold;
-      line-height: 1;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: baseline;
-      border-radius: 0.375rem;
-      text-decoration: none;
-      margin: 0.2rem;
-    }
-    
-    .badge-docker {
-      background-color: #2496ed;
-      color: white;
-    }
-    
-    .badge-github {
-      background-color: #333;
-      color: white;
-    }
-    
-    .badge-license {
-      background-color: #28a745;
-      color: white;
-    }
-    
-    .badge-stars {
-      background-color: #ffc107;
-      color: black;
+    /* 移动端适配 */
+    @media screen and (max-width: 768px) {
+      .app-nav {
+        width: 100%;
+      }
+      
+      .markdown-section {
+        max-width: 95%;
+        padding: 20px 10px;
+      }
+      
+      .sidebar {
+        transform: translateX(-300px);
+      }
+      
+      .sidebar.open {
+        transform: translateX(0);
+      }
     }
   </style>
 </head>
 <body>
-  <div id="app">加载中...</div>
+  <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '<img src="http://tuziwo.eu.org/uploads/f86d4c45-32d2-42b5-8d00-30cdddb2adc2.png" width="32" height="32" style="margin-right: 8px;">NodeSeek RSS 监控工具',
+      name: 'NodeSeek RSS 监控工具',
       repo: 'https://github.com/xhhcn/ns-rss',
+      homepage: 'README.md',
       loadSidebar: true,
       loadNavbar: true,
       coverpage: true,
-      executeScript: true,
+      onlyCover: false,
       maxLevel: 4,
       subMaxLevel: 2,
+      auto2top: true,
       search: {
-        placeholder: '🔍 搜索文档...',
-        noData: '😞 没有找到相关内容',
-        depth: 6
+        depth: 6,
+        noData: '没有找到结果',
+        placeholder: '搜索...',
+        pathNamespaces: ['/'],
+        hideOtherSidebarContent: false,
+        namespace: undefined,
       },
       copyCode: {
-        buttonText: '📋 复制代码',
-        errorText: '❌ 复制失败',
-        successText: '✅ 复制成功'
+        buttonText: '复制代码',
+        errorText: '复制失败',
+        successText: '已复制'
       },
       pagination: {
         previousText: '上一页',
@@ -231,9 +148,6 @@
       },
       count: {
         countable: true,
-        position: 'top',
-        margin: '10px',
-        float: 'right',
         fontsize: '0.9em',
         color: 'rgb(90,90,90)',
         language: 'chinese'
@@ -241,63 +155,23 @@
       plugins: [
         function(hook, vm) {
           hook.beforeEach(function(html) {
-            const url = 'https://github.com/xhhcn/ns-rss/blob/main/docs/' + vm.route.file;
-            const github = '[📝 编辑此页面](' + url + ')\n';
-            return github + html;
+            var url = 'https://github.com/xhhcn/ns-rss/blob/main/docs/' + vm.route.file;
+            var editHtml = '[📝 编辑文档](' + url + ')\n';
+            return editHtml + html;
           });
         }
       ]
-    }
+    };
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <!-- 搜索插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <!-- 复制代码插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
-  <!-- 分页插件 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-  <!-- 字数统计插件 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify-count/dist/countable.min.js"></script>
-  <!-- 代码高亮 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
-  <!-- GitHub Corner -->
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
-  <a href="https://github.com/xhhcn/ns-rss" class="github-corner" aria-label="View source on GitHub">
-    <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#42b983; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-      <path d="m0,0 0,0 115,115 0,0 0,0 0,0 131,131 0,0 70,70 0,0 0,0 0,0 115,115 0,0"></path>
-      <path d="m128.3,109.0 c113.8,99.7 119.0,89.6 119.0,89.6 108.1,102.8 132.9,140.4 123.4,154.9 0,0 -21.9,23.0 -25.9,23.0 -13.0,0 -21.9,-23.0 -25.9,-23.0 130.4,-14.5 130.4,-14.5 130.4,-14.5 122.8,4.9 115.9,-6.9 115.9,-6.9 114.8,-7.8 132.9,-140.4 132.9,-140.4 101.7,-68.2 101.7,-68.2 101.7,-68.2 119.0,89.6 119.0,89.6 119.0,89.6 108.1,102.8 132.9,140.4 123.4,154.9z" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-      <path d="m115.0,115.0 c114.9,114.9 119.0,89.6 119.0,89.6 108.1,102.8 132.9,140.4 123.4,154.9 L144.3,160.0 C135.9,151.6 129.2,141.0 127.3,129.3 L186.8,68.8 C190.9,64.7 186.8,68.8 186.8,68.8 L186.8,68.8 Z" fill="currentColor" class="octo-body"></path>
-    </svg>
-  </a>
-  <style>
-    .github-corner:hover .octo-arm {
-      animation: octocat-wave 560ms ease-in-out
-    }
-    
-    @keyframes octocat-wave {
-      0%, 100% {
-        transform: rotate(0)
-      }
-      20%, 60% {
-        transform: rotate(-25deg)
-      }
-      40%, 80% {
-        transform: rotate(10deg)
-      }
-    }
-    
-    @media (max-width:500px) {
-      .github-corner:hover .octo-arm {
-        animation: none
-      }
-      .github-corner .octo-arm {
-        animation: octocat-wave 560ms ease-in-out
-      }
-    }
-  </style>
 </body>
 </html> 
