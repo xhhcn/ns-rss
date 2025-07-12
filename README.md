@@ -38,11 +38,7 @@
 
 ## 🚀 快速开始
 
-<div align="center">
-
 [![Deploy on Docker](https://img.shields.io/badge/Deploy%20on-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/xhh1128/ns-rss)
-
-</div>
 
 ### 1. 获取 Telegram Bot Token
 
