@@ -17,10 +17,10 @@ docker run -d --name nodeseek-rss-monitor \
 ### 多个聊天ID（JSON数组格式）
 ```bash
 docker run -d --name nodeseek-rss-monitor \
-  -e TG_BOT_TOKEN='7729781072:AAFwddTv27lCDblU06wVmOryEh05vY5-BRA' \
-  -e 'TG_CHAT_ID=["35873777","396733329"]' \
+  -e TG_BOT_TOKEN='your_bot_token_here' \
+  -e 'TG_CHAT_ID=["your_chat_id_1","your_chat_id_2"]' \
   -e 'CATEGORIES=["daily","review"]' \
-  -e 'KEYWORDS=["只测不评","没有"]' \
+  -e 'KEYWORDS=["关键词1","关键词2"]' \
   -e WAIT_TIME=5 \
   -v "$(pwd)/data:/app/data" \
   nodeseek-rss
@@ -29,10 +29,10 @@ docker run -d --name nodeseek-rss-monitor \
 ### 兼容旧格式（逗号分隔）
 ```bash
 docker run -d --name nodeseek-rss-monitor \
-  -e TG_BOT_TOKEN='7729781072:AAFwddTv27lCDblU06wVmOryEh05vY5-BRA' \
-  -e TG_CHAT_ID='35873777,396733329' \
+  -e TG_BOT_TOKEN='your_bot_token_here' \
+  -e TG_CHAT_ID='your_chat_id_1,your_chat_id_2' \
   -e CATEGORIES='daily,review' \
-  -e KEYWORDS='只测不评,没有' \
+  -e KEYWORDS='关键词1,关键词2' \
   -e WAIT_TIME=5 \
   -v "$(pwd)/data:/app/data" \
   nodeseek-rss
